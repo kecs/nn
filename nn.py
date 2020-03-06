@@ -19,15 +19,15 @@ class NN(object):
     def __init__(self, dimensions=None, fn='sigmoid',
                   loadpath=None, savepath=None, weights=None, biases=None):
         '''
-        @param dimensions: eg.: [5, 7, 7 3]
-        @param fn: 'sigmoid' activation function defults to sigmoid.
-        @loadpath: Path to load a model from. Defaults to pwd/models.
-        @savepath: Path to save a model to. Defaults to pwd/models.
+        @param dimensions: eg.: [5, 7, 7, 3]
+        @param fn: activation function defults to sigmoid.
+        @loadpath: Path to load a model from.
+        @savepath: Path to save a model to.
         @dimensions: Shape of the NN.
         @weights: Construct NN directly from weights and biases for crossover.
         @biases: Construct NN directly from weights and biases for crossover.
 
-        Network is stored by tuples of weights as nodes (from a1...an to at),
+        Network is stored in tuples of weights as nodes (from a1...an to am),
         then tuples of these as layers, then tuple of layers as a nn.
         ((((w1, w2, ... wn),
          ...
@@ -45,7 +45,7 @@ class NN(object):
         If `loadpath` is supplied, a pickle file is loaded 
         with the tuples of weights and a tuple of biases:
         {'layers': (..., ), 'biases': (..., ), 'dimensions': [[n, ...], ...]}.
-        Otherwise weights and biases are random values.
+        Otherwise weights and biases are randomly initialized.
         '''
 
         # Directly initialized by weigths and biases

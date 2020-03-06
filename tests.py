@@ -47,13 +47,26 @@ class TestNN(unittest.TestCase):
         self.assertTrue(model_1_contained and model_2_contained)
 
     def test_mutation_is_within_percent_range(self):
-        model_1 = NN(dimensions=[2, 3, 2])
+        pc_ran = NN.MUTATION_INCREASE_PC
+        model_1 = NN(dimensions=[7, 10, 12, 10, 5])
         model_2 = model_1.mutate()
 
-        print(model_1)
-        print(model_2)
-                            
-        self.assertTrue(1)
+        did_mutate = False
+        
+        for i, layer in enumerate(model_1.layers):
+            for j, node in enumerate(layer):
+                for k, w in enumerate(node):
+                    mutated_w = model_2.layers[i][j][k]
+                    
+                    if not math.isclose(mutated_w, w, abs_tol=.01):
+                        did_mutate = True
+
+                        self.assertTrue(math.isclose(
+                            abs((w / 100) * NN.MUTATION_INCREASE_PC),
+                            abs(w - mutated_w),
+                            abs_tol=.01))
+                        
+        self.assertTrue(did_mutate)
 
 
 if __name__ == '__main__':
